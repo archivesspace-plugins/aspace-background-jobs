@@ -1,0 +1,46 @@
+<div id="template_orphan_instructions">
+  <hr/>
+  <div class="alert alert-success"><%= "Choose a record type to deorphan" %></div>
+  <hr/>
+</div>
+
+<div class="col-md-12">
+  <h2>Orphan Finder Job</h2>
+  <div class="accordion" id="orphanListing">
+    <%# @orphan_data["orphans"].each do | orphan | %>
+      <div class='orphan-listing'>
+        <div class="alert alert-info">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#orphanListing" href="#orphanListing_<%= 'subjects'%>">
+            <%= 'Subjects' %>
+          </a>
+          <button class="pull-right btn btn-default  hide selected-message" disabled>Selected</button>
+          <button class="pull-right btn btn-default select-record" data-report="orphan_job">Select</button>
+          <a class="pull-right btn btn-default accordion-toggle" data-toggle="collapse" data-parent="" href="#orphanListing_<%= 'subjects' %>" >
+            <%= 'Subjects' %>
+          </a>
+        </div>
+      </div>
+      <div id="orphanListing_<%= 'subjects'%>" class="accordion-body collapse">
+        <div class="accordion-inner">
+          <%#= I18n.t("orphan_finder_job.orphan_subject_finder.description") %>
+          <hr/>
+          <input id='orphan_job_jsonmodel_type' name='orphan_job[jsonmodel_type]' type='hidden' value='orphan_job' />
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Run Type</label>
+              <div class="col-sm-9">
+                <%# run_types = run_types || %w{ test_run review_then_run execute_run } %>
+                <%#= select_tag("Run Type", options_for_select(run_types.map{|run_type| [I18n.t("orphan_finder_job.run_type.#{run_type}")]}, nil), :class => 'form-control') %>
+                <% subject = subject %>
+                <%= "Test #{subject.inspect}" %>
+                <%= @orphan_subject %>
+              </div>
+            <hr class="clear"/>
+            <div class="col-sm-9">
+              <%#= I18n.t("orphan_finder_job.run_type.execute_run_description") %>
+            </div>
+            </div>
+        </div>
+      </div>
+    <%# end %>
+  </div>
+</div>
