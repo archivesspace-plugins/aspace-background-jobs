@@ -7,12 +7,13 @@
     "properties" => {
 
       "orphan_type" => {
-        "type" => "string", 
+        "type" => "string",
         "if_missing" => "error"
       },
 
       "format" => {
-        "type" => "string"
+        "type" => "string",
+        "if_missing" => "error"
       }
 
     }
