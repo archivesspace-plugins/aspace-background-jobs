@@ -14,17 +14,11 @@ class OrphanFinderRunner < JobRunner
 
   def run
 
-    file = ASUtils.tempfile('orphan_job_')
+    file = ASUtils.tempfile('orphan_finder_job_')
 
     begin
 
       job_data = @json.job
-      @job.write_output("#{job_data}")
-      # Figure out how to get these set from the job creation point.
-      job_data['orphan_type'] = 'subject_orphan'
-      job_data['format'] = 'csv'
-      job_data['model'] = 'SubjectOrphan'
-      @job.write_output("#{job_data}")
 
       # we need to massage the json sometimes..
       begin
@@ -42,14 +36,10 @@ class OrphanFinderRunner < JobRunner
       orphan_model = OrphanFinderRunner.orphans[job_data['orphan_type']][:model]
 
       orphan = DB.open do |db|
-        orphan_model.new
-        # (params, @job, db)
+        orphan_model.new(params, @job, db)
       end
 
-      # Leaving this here because this is where I should start... Why isn't it getting the methods from Abstract Orphan?? How was it able to do so before?
-      log("Orphan: #{orphan.methods}")
-
-      file = ASUtils.tempfile('orphan_job_')
+      file = ASUtils.tempfile('orphan_finder_job_')
       OrphanGenerator.new(orphan).generate(file)
 
       file.rewind
@@ -60,7 +50,6 @@ class OrphanFinderRunner < JobRunner
       self.success!
 
       orphan_logger(orphan)
-
 
       log("===")
 

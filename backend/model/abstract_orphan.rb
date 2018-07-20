@@ -11,7 +11,7 @@ class AbstractOrphan
   attr_accessor :job
   attr_accessor :info
 
-  def self.initialize(params, job, db)
+  def initialize(params, job, db)
     @repo_id = params[:repo_id] if params.has_key?(:repo_id) && params[:repo_id] != ''
     @format = params[:format] if params.has_key?(:format) && params[:format] != ''
     @params = params
@@ -20,11 +20,11 @@ class AbstractOrphan
     @info = {}
   end
 
-  def self.current_user
+  def current_user
     @job.owner
   end
 
-  def self.get_content
+  def get_content
     array = []
     query.each do |result|
       row = result.to_hash
@@ -36,7 +36,7 @@ class AbstractOrphan
     array
   end
 
-  def self.query(db = @db)
+  def query(db = @db)
     raise 'Please specify a query to return your orphanable results'
   end
 
@@ -48,7 +48,7 @@ class AbstractOrphan
     self.name.gsub(/(.)([A-Z])/,'\1_\2').downcase
   end
 
-  def self.repository
+  def repository
     Repository.get_or_die(repo_id).name
   end
 

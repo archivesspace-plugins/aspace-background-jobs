@@ -1,4 +1,8 @@
 <div class="form-group">
-  <label class="col-sm-3 control-label"><%= I18n.t("run_types.run_type") %></label>
-  <div class="col-sm-9 controls label-only"><%= I18n.t("run_types.#{job['run_type']}") %></div>
+  <label class="col-sm-3 control-label"><%= I18n.t("orphans.orphan_type")  %></label>
+  <div class="col-sm-9 controls label-only"><%= I18n.t("orphans.#{job['orphan_type']}.title", :default => job['orphan_type']) %></div>
+</div>
+<div class="form-group">
+  <label class="col-sm-3 control-label"><%= I18n.t("run_types.run_type")  %></label>
+  <div class="col-sm-9 controls label-only"><%= I18n.t("run_types.#{job['run_type']}", :default => job['run_type']) %></div>
 </div>

@@ -19,20 +19,25 @@
             <%= 'Subjects' %>
           </a>
         </div>
-      </div>
-      <div id="orphanListing_<%= 'subjects'%>" class="accordion-body collapse">
-        <div class="accordion-inner">
-          <%#= I18n.t("orphan_finder_job.orphan_subject_finder.description") %>
-          <hr/>
-          <input id='orphan_job_jsonmodel_type' name='orphan_job[jsonmodel_type]' type='hidden' value='orphan_job' />
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Run Type</label>
-              <div class="col-sm-9">
-                <%# run_types = run_types || %w{ test_run review_then_run execute_run } %>
-                <%#= select_tag("Run Type", options_for_select(run_types.map{|run_type| [I18n.t("orphan_finder_job.run_type.#{run_type}")]}, nil), :class => 'form-control') %>
-                <% subject = subject %>
-                <%= "Test #{subject.inspect}" %>
-                <%= @orphan_subject %>
+        <div id="orphanListing_<%= orphan["code"] %>" class="accordion-body collapse">
+          <div class="accordion-inner">
+            <p><%= I18n.t("orphans.#{orphan["code"]}.description", :default => orphan["code"]) %></p>
+            <hr/>
+            <input id='orphan_type_' name='orphan_finder_job[orphan_type]' type='hidden' value='<%= orphan['code'] %>' />
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Run Type</label>
+                <div class="col-sm-9">
+                  <% run_types = @orphan_data["run_types"] || %w{ test_run review_then_run execute_run } %>
+                  <%= select_tag("orphan_finder_job[run_type]", options_for_select(run_types.map{|run_type| [I18n.t("orphans.run_types.#{run_type}", :default => run_type), run_type]}, nil), :class => 'form-control') %>
+                </div>
+              </div>
+              <hr/>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Format</label>
+                <div class="col-sm-9">
+                  <% formats = @orphan_data["formats"] || %w{ csv } %>
+                  <%= select_tag("orphan_finder_job[format]", options_for_select(formats.map{|format| [I18n.t("orphans.formats.#{format}", :default => format), format]}, nil), :class => 'form-control') %>
+                </div>
               </div>
             <hr class="clear"/>
             <div class="col-sm-9">
@@ -43,4 +48,5 @@
       </div>
     <%# end %>
   </div>
+  <input id="orphan_finder_job_jsonmodel_type_" name="orphan_finder_job[jsonmodel_type]" type="hidden" value="orphan_finder_job">
 </div>
