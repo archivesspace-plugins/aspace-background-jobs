@@ -2,14 +2,15 @@ en:
   orphan_finder_job:
     _singular: Orphan finder job
     _plural: Orphan finder jobs
-    run_types:
-      run_type: Run Type
-      test_run: Test Run
-      test_run_description: A test drive of the orphan finder that executes no delete at the end.  Results may be downloaded in various formats for longer term clean up projects.
-      review_then_run: Review Then (Optionally) Run
-      review_then_run_description: Orphan records are identified and, if desired, the user may opt to selectively (or globally) delete orphaned records.  Useful when few orphaned records are identified and minimal manual review is required.
-      execute_run: Execute
-      execute_run_description: Orphan records are identified and immediately deleted in bulk.  Useful when one is certain that all orphaned records should be permenantly deleted.  <b>Warning</b> This operation is not reversible.
+    
+  run_types:
+    run_type: Run Type
+    test_run: Test Run
+    test_run_description: A test drive of the orphan finder that executes no delete at the end.  Results may be downloaded in various formats for longer term clean up projects.
+    review_then_run: Review Then (Optionally) Run
+    review_then_run_description: Orphan records are identified and, if desired, the user may opt to selectively (or globally) delete orphaned records.  Useful when few orphaned records are identified and minimal manual review is required.
+    execute_run: Execute
+    execute_run_description: Orphan records are identified and immediately deleted in bulk.  Useful when one is certain that all orphaned records should be permenantly deleted.  <b>Warning</b> This operation is not reversible.
 
   orphans:
     orphan_type: Orphan Type

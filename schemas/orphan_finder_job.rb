@@ -14,6 +14,11 @@
       "format" => {
         "type" => "string",
         "if_missing" => "error"
+      },
+
+      "run_type" => {
+        "type" => "string",
+        "if_missing" => "error"
       }
 
     }

@@ -26,12 +26,14 @@ class OrphanFinderRunner < JobRunner
       rescue JSON::ParserError
         params = {}
       end
+      params[:run_type] = job_data['run_type']
       params[:format] = job_data['format']
       params[:repo_id] = @json.repo_id
 
       log(Time.now)
-      # Maybe add a title field to job_data to make this prettier
-      @job.write_output("Found the following #{job_data['orphan_type']}:")
+      
+      type_title = I18n.t("orphans.#{job_data['orphan_type']}.title", :default => job_data['orphan_type'])
+      @job.write_output("Found the following #{type_title}:")
 
       orphan_model = OrphanFinderRunner.orphans[job_data['orphan_type']][:model]
 
