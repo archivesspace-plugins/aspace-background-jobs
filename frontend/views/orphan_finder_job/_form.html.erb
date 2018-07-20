@@ -7,16 +7,17 @@
 <div class="col-md-12">
   <h2>Orphan Finder Job</h2>
   <div class="accordion" id="orphanListing">
-    <%# @orphan_data["orphans"].each do | orphan | %>
+    <% @orphan_data = JSONModel::HTTP::get_json("/orphans") %>
+    <% @orphan_data["orphans"].values.sort {|x,y| I18n.t("orphans.#{x['code']}.title") <=> I18n.t("orphans.#{y['code']}.title") }.each do | orphan | %>
       <div class='orphan-listing'>
         <div class="alert alert-info">
-          <a class="accordion-toggle" data-toggle="collapse" data-parent="#orphanListing" href="#orphanListing_<%= 'subjects'%>">
-            <%= 'Subjects' %>
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#orphanListing" href="#orphanListing_<%= orphan["code"] %>">
+            <%= I18n.t("orphans.#{orphan["code"]}.title") %>
           </a>
           <button class="pull-right btn btn-default  hide selected-message" disabled>Selected</button>
-          <button class="pull-right btn btn-default select-record" data-report="orphan_job">Select</button>
-          <a class="pull-right btn btn-default accordion-toggle" data-toggle="collapse" data-parent="" href="#orphanListing_<%= 'subjects' %>" >
-            <%= 'Subjects' %>
+          <button class="pull-right btn btn-default select-record" data-report="<%= orphan['code'] %>">Select</button>
+          <a class="pull-right btn btn-default accordion-toggle" data-toggle="collapse" data-parent="#orphanListing" href="#orphanListing_<%= orphan["code"] %>" >
+            <%= I18n.t("job.show_description") %>
           </a>
         </div>
         <div id="orphanListing_<%= orphan["code"] %>" class="accordion-body collapse">
@@ -39,14 +40,10 @@
                   <%= select_tag("orphan_finder_job[format]", options_for_select(formats.map{|format| [I18n.t("orphans.formats.#{format}", :default => format), format]}, nil), :class => 'form-control') %>
                 </div>
               </div>
-            <hr class="clear"/>
-            <div class="col-sm-9">
-              <%#= I18n.t("orphan_finder_job.run_type.execute_run_description") %>
-            </div>
-            </div>
+          </div>
         </div>
       </div>
-    <%# end %>
+    <% end %>
   </div>
   <input id="orphan_finder_job_jsonmodel_type_" name="orphan_finder_job[jsonmodel_type]" type="hidden" value="orphan_finder_job">
 </div>

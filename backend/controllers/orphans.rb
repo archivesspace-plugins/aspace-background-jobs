@@ -10,7 +10,8 @@ class ArchivesSpaceService < Sinatra::Base
     do
     json_response({
                     :orphans => OrphanManager.registered_orphans,
-                    :formats => 'csv'
+                    :run_types => OrphanManager.allowed_orphan_run_types,
+                    :formats => OrphanManager.allowed_orphan_formats
                   })
   end
 

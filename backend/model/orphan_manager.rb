@@ -1,6 +1,17 @@
 module OrphanManager
   @@registered_orphans ||= {}
 
+  ALLOWED_ORPHAN_FORMATS = ["csv"]
+
+  def self.allowed_orphan_formats
+    ALLOWED_ORPHAN_FORMATS
+  end
+
+  ALLOWED_ORPHAN_RUN_TYPES = ["test_run", "review_then_run", "execute_run"]
+
+  def self.allowed_orphan_run_types
+    ALLOWED_ORPHAN_RUN_TYPES
+  end
 
   def self.register_orphan(orphan_class, opts)
     opts[:code] = orphan_class.code

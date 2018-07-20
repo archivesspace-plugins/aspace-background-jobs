@@ -1,4 +1,4 @@
-require_relative 'orphan_generator'
+require_relative '../lib/orphan_generator'
 require 'json'
 
 class OrphanFinderRunner < JobRunner
