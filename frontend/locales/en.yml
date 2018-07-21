@@ -2,7 +2,11 @@ en:
   orphan_finder_job:
     _singular: Orphan finder job
     _plural: Orphan finder jobs
-    
+
+  job:
+    types:
+      orphan_finder_job: Orphan Finder Job
+
   run_types:
     run_type: Run Type
     test_run: Test Run
@@ -16,48 +20,22 @@ en:
     orphan_type: Orphan Type
     archival_object_orphan:
       title: Archival Object Orphans
-      description: Provide a listing of all unprocessed accessions
+      description: Identifies archival objects without a parent record.
     corporate_orphan:
       title: Corporate Entity Orphans
-      description: Provide a listing of all unprocessed accessions
+      description: Identifies orphaned corporate entity agents.
     family_orphan:
       title: Family Orphans
-      description: Provide a listing of all unprocessed accessions
+      description: Identifies orphaned family name agents.
     instance_orphan:
       title: Instance Orphans
-      description: Provide a listing of all unprocessed accessions
+      description: Identifies orphaned instances.
     software_orphan:
       title: Software Orphans
-      description: Provide a listing of all unprocessed accessions
+      description: Identifies orphaned software agents.
     subject_orphan:
       title: Subject Orphans
-      description: Provide a listing of all unprocessed accessions
+      description: Identifies orphaned subjects.
     person_orphan:
       title: Person Orphans
-      description: Provide a listing of all unprocessed accessions
-
-  record_type:
-    orphan_subject_finder:
-      title: Subject Finder
-      description: Identifies orphaned subjects.
-    orphan_instance_finder:
-      title: Instance Finder
-      description: Identifies orphaned instances.
-    orphan_agent_corporate_finder:
-      title: Corporate Entities Finder
-      description: Identifies orphaned corporate entity agents.
-    orphan_agent_family_finder:
-      title: Family Finder
-      description: Identifies orphaned family name agents.
-    orphan_agent_person_finder:
-      title: Person Finder
       description: Identifies orphaned personal name agents.
-    orphan_agent_software_finder:
-      title: Software Finder
-      description: Identifies orphaned software agents.
-
-
-
-  job:
-    types:
-      orphan_finder_job: Orphan Finder Job

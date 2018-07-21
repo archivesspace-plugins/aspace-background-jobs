@@ -1,8 +1,5 @@
-<div id="template_orphan_instructions">
-  <hr/>
-  <div class="alert alert-success"><%= "Choose a record type to deorphan" %></div>
-  <hr/>
-</div>
+<div id="template_orphan_instructions"></div>
+<div class="alert alert-success"><%= "Choose a record type to deorphan" %></div>
 
 <div class="col-md-12">
   <h2>Orphan Finder Job</h2>
@@ -15,7 +12,7 @@
             <%= I18n.t("orphans.#{orphan["code"]}.title") %>
           </a>
           <button class="pull-right btn btn-default  hide selected-message" disabled>Selected</button>
-          <button class="pull-right btn btn-default select-record" data-report="<%= orphan['code'] %>">Select</button>
+          <button class="pull-right btn btn-default select-record" data-orphan="<%= orphan['code'] %>">Select</button>
           <a class="pull-right btn btn-default accordion-toggle" data-toggle="collapse" data-parent="#orphanListing" href="#orphanListing_<%= orphan["code"] %>" >
             <%= I18n.t("job.show_description") %>
           </a>
@@ -29,7 +26,7 @@
                 <label class="col-sm-2 control-label">Run Type</label>
                 <div class="col-sm-9">
                   <% run_types = @orphan_data["run_types"] || %w{ test_run review_then_run execute_run } %>
-                  <%= select_tag("orphan_finder_job[run_type]", options_for_select(run_types.map{|run_type| [I18n.t("orphans.run_types.#{run_type}", :default => run_type), run_type]}, nil), :class => 'form-control') %>
+                  <%= select_tag("orphan_finder_job[run_type]", options_for_select(run_types.map{|run_type| [I18n.t("run_types.#{run_type}", :default => run_type), run_type]}, nil), :class => 'form-control') %>
                 </div>
               </div>
               <hr/>
