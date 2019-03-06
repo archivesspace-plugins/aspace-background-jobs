@@ -7,7 +7,7 @@ module OrphanManager
     ALLOWED_ORPHAN_FORMATS
   end
 
-  ALLOWED_ORPHAN_RUN_TYPES = ["test_run", "review_then_run", "execute_run"]
+  ALLOWED_ORPHAN_RUN_TYPES = ["test_run", "review_run", "execute_run"]
 
   def self.allowed_orphan_run_types
     ALLOWED_ORPHAN_RUN_TYPES
@@ -16,6 +16,7 @@ module OrphanManager
   def self.register_orphan(orphan_class, opts)
     opts[:code] = orphan_class.code
     opts[:model] = orphan_class
+    opts[:parent_class] = orphan_class.parent_class
     opts[:params] ||= []
 
     Log.warn("Orphan with code '#{opts[:code]}' already registered") if @@registered_orphans.has_key?(opts[:code])

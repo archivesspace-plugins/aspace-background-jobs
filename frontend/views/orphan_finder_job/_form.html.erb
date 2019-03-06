@@ -25,18 +25,39 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">Run Type</label>
                 <div class="col-sm-9">
-                  <% run_types = @orphan_data["run_types"] || %w{ test_run review_then_run execute_run } %>
+                  <% run_types = @orphan_data["run_types"] || %w{ test_run review_run execute_run } %>
                   <%= select_tag("orphan_finder_job[run_type]", options_for_select(run_types.map{|run_type| [I18n.t("run_types.#{run_type}", :default => run_type), run_type]}, nil), :class => 'form-control') %>
                 </div>
               </div>
-              <hr/>
+              <br />
               <div class="form-group">
-                <label class="col-sm-2 control-label">Format</label>
-                <div class="col-sm-9">
-                  <% formats = @orphan_data["formats"] || %w{ csv } %>
-                  <%= select_tag("orphan_finder_job[format]", options_for_select(formats.map{|format| [I18n.t("orphans.formats.#{format}", :default => format), format]}, nil), :class => 'form-control') %>
+                <label class="col-sm-2 control-label">Description</label>
+                <div class="review_desc" hidden="true">
+                  <div class="col-sm-9">
+                    <%= I18n.t("run_types.review_run_description")%>
+                  </div>
+                </div>
+                <%# Test run description populated/unhidden by default as it is the default run type selection %>
+                <div class="test_desc">
+                  <div class="col-sm-9">
+                    <%= I18n.t("run_types.test_run_description")%>
+                  </div>
+                </div>
+                <div class="execute_desc" hidden="true">
+                  <div class="col-sm-9">
+                    <%= I18n.t("run_types.execute_run_description")%>
+                  </div>
+                </div>
+                <%# Right now we're only supporting csv as a download format, but in theory others have been added so I've sketched this out.  The div is set to hidden, though, because it'd be silly to have a dropdown with only once choice. %>
+                <div class="form-group" hidden="true">
+                  <label class="col-sm-2 control-label">Format</label>
+                  <div class="col-sm-9">
+                    <% formats = @orphan_data["formats"] || %w{ csv } %>
+                    <%= select_tag("orphan_finder_job[format]", options_for_select(formats.map{|format| [I18n.t("orphans.formats.#{format}", :default => format), format]}, nil), :class => 'form-control') %>
+                  </div>
                 </div>
               </div>
+              <br />
           </div>
         </div>
       </div>

@@ -144,6 +144,7 @@ $(function() {
         });
 
         initLocationReportSubForm();
+        initFormatOrphanSubForm();
       } else if (type === "print_to_pdf_job") {
         $("#noImportTypeSelected", $form).hide();
         $("#job_type_fields", $form)
@@ -245,7 +246,7 @@ $(function() {
         });
         $("#job_import_type_", $form).trigger("change");
 
-      } 
+      }
     });
 
     var handleError = function(errorHTML) {
@@ -362,6 +363,27 @@ $(function() {
     });
 
     $('#location_report_type').trigger('change');
+  };
+
+  var initFormatOrphanSubForm = function () {
+    $(document).on('change', '#orphan_finder_job_run_type', function () {
+
+      if ($(this).val() == 'review_run') {
+        $('.review_desc').show();
+      } else {
+        $('.review_desc').hide();
+      }
+      if ($(this).val() == 'execute_run') {
+        $('.execute_desc').show();
+      } else {
+        $('.execute_desc').hide();
+      }
+      if ($(this).val() == 'test_run') {
+        $('.test_desc').show();
+      } else {
+        $('.test_desc').hide();
+      }
+    });
   };
 
   initImportJobForm();
