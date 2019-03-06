@@ -10,32 +10,32 @@ en:
   run_types:
     run_type: Run Type
     test_run: Test Run
-    test_run_description: A test drive of the orphan finder that executes no delete at the end.  Results may be downloaded in various formats for longer term clean up projects.
-    review_then_run: Review Then (Optionally) Run
-    review_then_run_description: Orphan records are identified and, if desired, the user may opt to selectively (or globally) delete orphaned records.  Useful when few orphaned records are identified and minimal manual review is required.
+    test_run_description: Orphan records are identified and reported via the embedded job log, but no action is taken.  Useful when few orphaned records are identified and minimal manual review is required.
+    review_run: Review Run
+    review_run_description: A test drive of the orphan finder that executes no delete at the end.  Results may be downloaded for longer term clean up projects.
     execute_run: Execute
-    execute_run_description: Orphan records are identified and immediately deleted in bulk.  Useful when one is certain that all orphaned records should be permenantly deleted.  <b>Warning</b> This operation is not reversible.
+    execute_run_description: Orphan records are identified and immediately deleted in bulk.  Useful when one is certain that all orphaned records should be permenantly deleted.<br/>  <b>Warning</b> This operation is not reversible.
 
   orphans:
     orphan_type: Orphan Type
     archival_object_orphan:
       title: Archival Object Orphans
       description: Identifies archival objects without a parent record.
-    corporate_orphan:
+    agent_corporate_entity_orphan:
       title: Corporate Entity Orphans
       description: Identifies orphaned corporate entity agents.
-    family_orphan:
+    agent_family_orphan:
       title: Family Orphans
       description: Identifies orphaned family name agents.
     instance_orphan:
       title: Instance Orphans
       description: Identifies orphaned instances.
-    software_orphan:
+    agent_software_orphan:
       title: Software Orphans
       description: Identifies orphaned software agents.
     subject_orphan:
       title: Subject Orphans
       description: Identifies orphaned subjects.
-    person_orphan:
+    agent_person_orphan:
       title: Person Orphans
       description: Identifies orphaned personal name agents.

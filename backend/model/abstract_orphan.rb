@@ -3,6 +3,7 @@ require_relative 'orphan_manager'
 class AbstractOrphan
   include OrphanManager::Mixin
   include JSONModel
+  include CrudHelpers
 
   attr_accessor :repo_id
   attr_accessor :format
@@ -46,6 +47,14 @@ class AbstractOrphan
 
   def self.code
     self.name.gsub(/(.)([A-Z])/,'\1_\2').downcase
+  end
+
+  def parent_class
+    self.class.parent_class.constantize
+  end
+
+  def self.parent_class
+    self.name.gsub('Orphan','')
   end
 
   def repository

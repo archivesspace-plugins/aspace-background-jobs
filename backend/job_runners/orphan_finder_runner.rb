@@ -4,6 +4,8 @@ require 'json'
 class OrphanFinderRunner < JobRunner
 
   include JSONModel
+  include CrudHelpers
+  include RESTHelpers::ResponseHelpers
 
   register_for_job_type('orphan_finder_job',
                           :run_concurrently => true)
@@ -31,7 +33,7 @@ class OrphanFinderRunner < JobRunner
       params[:repo_id] = @json.repo_id
 
       log(Time.now)
-      
+
       type_title = I18n.t("orphans.#{job_data['orphan_type']}.title", :default => job_data['orphan_type'])
       @job.write_output("Found the following #{type_title}:")
 
@@ -41,31 +43,37 @@ class OrphanFinderRunner < JobRunner
         orphan_model.new(params, @job, db)
       end
 
-      file = ASUtils.tempfile('orphan_finder_job_')
-      OrphanGenerator.new(orphan).generate(file)
+      if params[:run_type] == 'review_run'
+        file = ASUtils.tempfile('orphan_finder_job_')
+        OrphanGenerator.new(orphan).generate(file)
 
-      file.rewind
-      @job.write_output('Adding csv file.')
+        file.rewind
+        @job.write_output('Adding csv file.')
 
-      @job.add_file(file)
+        @job.add_file(file)
 
-      self.success!
+        self.success!
+      end
 
-      orphan_logger(orphan)
+      if params[:run_type] == 'test_run'
+        orphan_logger(orphan)
+
+        self.success!
+      end
+
+      if params[:run_type] == 'execute_run'
+        orphan_deleter(orphan)
+
+        self.success!
+      end
 
       log("===")
 
-      # @job.write_output("Generating csv of orphaned  records.")
-      # file = ASUtils.tempfile("orphan_job_")
-      # OrphanGenerator.new(@orphan).generate_csv(file)
-      # @job.write_output("Linking to orphaned records csv.")
-      # @job.add_file( file )
-
-      self.success!
     rescue Exception => e
       @job.write_output(e.message)
       @job.write_output(e.backtrace)
       raise e
+
     ensure
       file.close
       file.unlink
@@ -86,6 +94,17 @@ class OrphanFinderRunner < JobRunner
         line.push(value.is_a?(Array) ? ASUtils.to_json(value) : value)
       end
       @job.write_output("#{line}")
+    end
+  end
+
+  def orphan_deleter(orphan)
+    results = orphan.get_content
+    results.each do |result|
+      @job.write_output("Deleting #{result}")
+      RequestContext.open(:current_username => @job.owner.username,
+                          :repo_id => @job.repo_id) do
+                            orphan.parent_class[result[:id]].delete
+                          end
     end
   end
 
