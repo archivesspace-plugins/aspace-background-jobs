@@ -27,16 +27,15 @@
           <div class="accordion-inner">
 
             <p><%= I18n.t("orphans.#{orphan["code"]}.description", :default => orphan["code"]) %></p>
+            <%= form.hidden_input :orphan_type, orphan['code'] %>
 
             <hr/>
-
-            <input id='orphan_type_' name='orphan_finder_job[orphan_type]' type='hidden' value='<%= orphan['code'] %>' />
 
               <div class="form-group">
                 <label class="col-sm-2 control-label">Run Type</label>
                 <div class="col-sm-9">
                   <% run_types = @orphan_data["run_types"] || %w{ test_run review_run execute_run } %>
-                  <%= select_tag("orphan_finder_job[run_type]", options_for_select(run_types.map{|run_type| [I18n.t("run_types.#{run_type}", :default => run_type), run_type]}, nil), :class => 'form-control') %>
+                  <%= select_tag("job[run_type]", options_for_select(run_types.map{|run_type| [I18n.t("run_types.#{run_type}", :default => run_type), run_type]}, nil), :class => 'form-control') %>
                 </div>
               </div>
 
@@ -68,7 +67,7 @@
                   <label class="col-sm-2 control-label">Format</label>
                   <div class="col-sm-9">
                     <% formats = @orphan_data["formats"] || %w{ csv } %>
-                    <%= select_tag("orphan_finder_job[format]", options_for_select(formats.map{|format| [I18n.t("orphans.formats.#{format}", :default => format), format]}, nil), :class => 'form-control') %>
+                    <%= select_tag("job[format]", options_for_select(formats.map{|format| [I18n.t("orphans.formats.#{format}", :default => format), format]}, nil), :class => 'form-control') %>
                   </div>
                 </div>
 
