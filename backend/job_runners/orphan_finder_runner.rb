@@ -8,7 +8,9 @@ class OrphanFinderRunner < JobRunner
   include RESTHelpers::ResponseHelpers
 
   register_for_job_type('orphan_finder_job',
-                          :run_concurrently => true)
+                        :create_permissions => :manage_repository,
+                        :cancel_permissions => :manage_repository,
+                        :run_concurrently => true)
 
   def self.orphans
    OrphanManager.registered_orphans
