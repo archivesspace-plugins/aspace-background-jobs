@@ -2,12 +2,17 @@
 <div class="alert alert-success"><%= "Choose a record type to deorphan" %></div>
 
 <div class="col-md-12">
+
   <h2>Orphan Finder Job</h2>
+
   <div class="accordion" id="orphanListing">
+
     <% @orphan_data = JSONModel::HTTP::get_json("/orphans") %>
     <% @orphan_data["orphans"].values.sort {|x,y| I18n.t("orphans.#{x['code']}.title") <=> I18n.t("orphans.#{y['code']}.title") }.each do | orphan | %>
+
       <div class='orphan-listing'>
-        <div class="alert alert-info">
+
+        <div class="alert alert-info with-hide-alert">
           <a class="accordion-toggle" data-toggle="collapse" data-parent="#orphanListing" href="#orphanListing_<%= orphan["code"] %>">
             <%= I18n.t("orphans.#{orphan["code"]}.title") %>
           </a>
@@ -17,11 +22,16 @@
             <%= I18n.t("job.show_description") %>
           </a>
         </div>
+
         <div id="orphanListing_<%= orphan["code"] %>" class="accordion-body collapse">
           <div class="accordion-inner">
+
             <p><%= I18n.t("orphans.#{orphan["code"]}.description", :default => orphan["code"]) %></p>
+
             <hr/>
+
             <input id='orphan_type_' name='orphan_finder_job[orphan_type]' type='hidden' value='<%= orphan['code'] %>' />
+
               <div class="form-group">
                 <label class="col-sm-2 control-label">Run Type</label>
                 <div class="col-sm-9">
@@ -29,14 +39,18 @@
                   <%= select_tag("orphan_finder_job[run_type]", options_for_select(run_types.map{|run_type| [I18n.t("run_types.#{run_type}", :default => run_type), run_type]}, nil), :class => 'form-control') %>
                 </div>
               </div>
+
               <br />
+
               <div class="form-group">
+
                 <label class="col-sm-2 control-label">Description</label>
                 <div class="review_desc" hidden="true">
                   <div class="col-sm-9">
                     <%= I18n.t("run_types.review_run_description")%>
                   </div>
                 </div>
+
                 <%# Test run description populated/unhidden by default as it is the default run type selection %>
                 <div class="test_desc">
                   <div class="col-sm-9">
@@ -48,6 +62,7 @@
                     <%= I18n.t("run_types.execute_run_description")%>
                   </div>
                 </div>
+
                 <%# Right now we're only supporting csv as a download format, but in theory others have been added so I've sketched this out.  The div is set to hidden, though, because it'd be silly to have a dropdown with only once choice. %>
                 <div class="form-group" hidden="true">
                   <label class="col-sm-2 control-label">Format</label>
@@ -56,12 +71,15 @@
                     <%= select_tag("orphan_finder_job[format]", options_for_select(formats.map{|format| [I18n.t("orphans.formats.#{format}", :default => format), format]}, nil), :class => 'form-control') %>
                   </div>
                 </div>
+
               </div>
+
               <br />
+
           </div>
         </div>
+
       </div>
     <% end %>
   </div>
-  <input id="orphan_finder_job_jsonmodel_type_" name="orphan_finder_job[jsonmodel_type]" type="hidden" value="orphan_finder_job">
 </div>

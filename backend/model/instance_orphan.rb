@@ -8,14 +8,17 @@ class InstanceOrphan < AbstractOrphan
 
   def query_string
     "SELECT
-      *
+        *
     FROM
-      instance
+        instance
     WHERE
-      instance.id
-    NOT IN
-      (SELECT instance_id FROM instance_do_link_rlshp UNION ALL
-      SELECT instance_id FROM sub_container);"
+        instance.id NOT IN (SELECT
+                instance_id
+            FROM
+                instance_do_link_rlshp UNION ALL SELECT
+                instance_id
+            FROM
+                sub_container);"
   end
 
 end

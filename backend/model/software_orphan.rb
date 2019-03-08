@@ -9,7 +9,7 @@ class AgentSoftwareOrphan < AbstractOrphan
   def query_string
     "SELECT
       agent_software.id,
-      namesw.sort_name,
+      swname,
       agent_software.publish,
       agent_software.created_by,
       agent_software.last_modified_by,
@@ -18,12 +18,15 @@ class AgentSoftwareOrphan < AbstractOrphan
       agent_software.user_mtime,
       agent_software.agent_sha1
     FROM
-      orphans.agent_software
+      agent_software
     LEFT OUTER JOIN
-      (select name_software.* from orphans.name_software)
-      as namesw
-      on namesw.agent_software_id = agent_software.id
-  	LEFT OUTER JOIN
+        (SELECT
+            name_software.agent_software_id,
+                MIN(name_software.sort_name) AS swname
+        FROM
+            name_software
+        GROUP BY agent_software_id) AS namesw ON namesw.agent_software_id = agent_software.id
+    LEFT OUTER JOIN
       linked_agents_rlshp
     ON
       agent_software.id = linked_agents_rlshp.agent_software_id
