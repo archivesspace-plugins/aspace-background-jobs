@@ -14,7 +14,7 @@ en:
     review_run: Review Run
     review_run_description: A test drive of the orphan finder that executes no delete at the end.  Results may be downloaded for longer term clean up projects.
     execute_run: Execute
-    execute_run_description: Orphan records are identified and immediately deleted in bulk.  Useful when one is certain that all orphaned records should be permenantly deleted.<br/>  <b>Warning</b> This operation is not reversible.
+    execute_run_description: Orphan records are identified and immediately deleted in bulk.  Useful when one is certain that all orphaned records should be permanently deleted.<br/>  <b>Warning</b> This operation is not reversible.
 
   orphans:
     orphan_type: Orphan Type
