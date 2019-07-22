@@ -2,6 +2,8 @@
 
 An ArchivesSpace plugin that adds a background job to aid in identifying and remediating orphaned records.
 
+This is the plugin for ArchivesSpace versions 2.5.2 and below.  For a plugin compatible with newer releases see: https://github.com/archivesspace-plugins/orphan_finder_job/tree/for_as_v2.6
+
 ## Record types included
 
 - Archival objects
